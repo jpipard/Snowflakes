@@ -9,6 +9,9 @@ import UIKit
 
 public class SnowflakesView : UIView {
 
+    var snowflakesMinSize = 2
+    var snowflakesMaxSize = 8
+    var stormRate = 50
     var animator1 : UIDynamicAnimator?
     var animator2 : UIDynamicAnimator?
     var snowflakes: [UIView] = []
@@ -52,18 +55,18 @@ public class SnowflakesView : UIView {
             }
             self.gravityPullRight = !self.gravityPullRight
         }
-        if(self.snowflakes.count < 150) {
+        if(self.snowflakes.count < 500) {
             dispatch_async(dispatch_get_main_queue()) {
                 self.addNewSnowflake()
             }
         }
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(Double(arc4random_uniform(100))/100, target: self, selector: "changeGravityDirection", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(Double(arc4random_uniform(UInt32(stormRate)))/100, target: self, selector: "changeGravityDirection", userInfo: nil, repeats: true)
     }
 
     func addNewSnowflake() {
         let snowflakePosition = CGPoint(x: Int(arc4random_uniform(UInt32(self.bounds.width)) + 1), y: -Int(arc4random_uniform(200)))
-        let snowflake = Snowflake(position: snowflakePosition, minimumSize: 2, maximumSize: 4)
+        let snowflake = Snowflake(position: snowflakePosition, minimumSize: snowflakesMinSize, maximumSize: snowflakesMaxSize)
         self.addSubview(snowflake)
 
         // Randomly assign the snowfalke to one of the two gravity environments.
