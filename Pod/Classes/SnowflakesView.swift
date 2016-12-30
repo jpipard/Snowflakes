@@ -11,7 +11,7 @@ public class SnowflakesView : UIView {
 
     var snowflakesMinSize = 2
     var snowflakesMaxSize = 8
-    var stormRate = 50
+    var stormRate = 25
     var animator1 : UIDynamicAnimator?
     var animator2 : UIDynamicAnimator?
     var snowflakes: [UIView] = []
